@@ -1,0 +1,16 @@
+<div class="container mx-auto px-4 py-8 max-w-4xl">
+  <div class="mb-6">
+    <h1 class="text-3xl font-bold text-gray-900 mb-2">Nuevo Producto</h1>
+    <p class="text-gray-600">Completa el formulario para agregar un nuevo producto al catálogo</p>
+  </div>
+
+  <div class="bg-white rounded-lg shadow-md p-6">
+    <%= render 'form' %>
+  </div>
+
+  <div class="mt-6">
+    <%= link_to '← Volver a la lista de productos', admin_products_path, 
+        class: "text-gray-600 hover:text-gray-900 underline" %>
+  </div>
+</div>
+

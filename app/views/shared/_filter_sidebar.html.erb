@@ -1,0 +1,70 @@
+<%= form_with url: customer_dashboard_path, method: :get, local: true, id: "filter-form" do |f| %>
+  <!-- Preservar filtro de categoría si existe -->
+  <% if @selected_category.present? %>
+    <%= hidden_field_tag "category_id", @selected_category %>
+  <% end %>
+  
+  <div class="flex flex-col w-[250px] rounded-3xl p-4">
+      <h3 class="text-lg font-semibold text-gray-900 mb-2">
+          Filtros
+      </h3>
+
+      <div>Price range</div>
+
+      <!-- Star Rating -->
+      <div class="mb-0.5 rounded-3xl bg-white p-4">
+          <h4 class="text-sm font-medium text-gray-700 mb-2">Calificación</h4>
+          <div class="space-y-2 flex flex-row">
+              <% 5.downto(1) do |rating| %>
+                  <%= image_tag "star_full.png", class: "w-4 h-4 mr-2 cursor-pointer" %>
+              <% end %>
+          </div>
+      </div>
+
+      <!-- Brands -->
+      <div class="mb-0.5 rounded-3xl bg-white p-4">
+          <div class="flex justify-between items-center mb-2">
+              <h4 class="text-sm font-medium text-gray-700">Marcas</h4>
+              <%= link_to "Reset", customer_dashboard_path(category_id: @selected_category), class: "text-xs text-blue-600 hover:text-blue-800" %>
+          </div>
+          <div class="space-y-2">
+              <% if @brands.present? %>
+                  <% @brands.each do |brand| %>
+                      <label class="flex items-center cursor-pointer">
+                          <%= check_box_tag "brand_ids[]", 
+                              brand.id, 
+                              @selected_brands.include?(brand.id.to_s),
+                              class: "rounded brand-checkbox",
+                              onchange: "this.form.submit()" %>
+                          <div class="flex items-center ml-2">
+                              <%= image_tag brand_image_path(brand.name), class: "w-4 h-4 mr-2" %>
+                              <span class="text-sm"><%= brand.name %></span>
+                          </div>
+                      </label>
+                  <% end %>
+              <% else %>
+                  <p class="text-sm text-gray-500">No hay marcas disponibles</p>
+              <% end %>
+          </div>
+      </div>
+
+      <!-- Delivery Options -->
+      <div class="mb-0.5 rounded-3xl bg-white p-4">
+          <h4 class="text-sm font-medium text-gray-700 mb-2">Opciones de Entrega</h4>
+          <div class="space-y-2">
+              <label class="flex items-center">
+                  <input type="checkbox" class="rounded">
+                  <span class="ml-2 text-sm">Envío Gratis</span>
+              </label>
+              <label class="flex items-center">
+                  <input type="checkbox" class="rounded">
+                  <span class="ml-2 text-sm">Entrega Rápida</span>
+              </label>
+              <label class="flex items-center">
+                  <input type="checkbox" class="rounded">
+                  <span class="ml-2 text-sm">Recogida en Tienda</span>
+              </label>
+          </div>
+      </div>
+  </div>
+<% end %>

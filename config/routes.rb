@@ -9,7 +9,8 @@ Rails.application.routes.draw do
   
   # Rutas para admins
   namespace :admin do
-    get 'dashboard', to: 'dashboard#admin', as: 'admin_dashboard'
+    get 'dashboard', to: 'dashboard#admin', as: 'dashboard'  # El namespace ya agrega el prefijo 'admin_'
+    resources :products  # Genera todas las rutas CRUD para productos
   end
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

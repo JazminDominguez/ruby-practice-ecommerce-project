@@ -1,11 +1,63 @@
-<div>
-  <h1 class="font-bold text-4xl">Admin::Dashboard#admin</h1>
-  <p>Find me in app/views/admin/dashboard/admin.html.erb</p>
-  
-  <%= link_to "Cerrar Sesión", destroy_user_session_path, 
-      data: { 
-        "turbo-method": :delete,
-        confirm: "¿Estás seguro de que quieres cerrar sesión?" 
-      },
-      class: "bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md text-sm font-medium" %>
+<div class="container mx-auto px-4 py-8">
+  <div class="mb-8">
+    <h1 class="text-4xl font-bold text-gray-900 mb-2">Panel de Administración</h1>
+    <p class="text-gray-600">Bienvenido, <%= current_user.email %></p>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+    <!-- Card de Productos -->
+    <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-xl font-semibold text-gray-900">Productos</h2>
+        <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+        </svg>
+      </div>
+      <p class="text-gray-600 mb-4">
+        <%= Product.count %> productos en el catálogo
+      </p>
+      <%= link_to 'Gestionar Productos', admin_products_path, 
+          class: "inline-block bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium" %>
+    </div>
+
+    <!-- Card de Estadísticas (placeholder para futuro) -->
+    <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-xl font-semibold text-gray-900">Estadísticas</h2>
+        <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+        </svg>
+      </div>
+      <p class="text-gray-600 mb-4">
+        Próximamente
+      </p>
+      <button disabled class="inline-block bg-gray-400 text-white px-4 py-2 rounded-md text-sm font-medium cursor-not-allowed">
+        Ver Estadísticas
+      </button>
+    </div>
+
+    <!-- Card de Usuarios (placeholder para futuro) -->
+    <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-xl font-semibold text-gray-900">Usuarios</h2>
+        <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+        </svg>
+      </div>
+      <p class="text-gray-600 mb-4">
+        Próximamente
+      </p>
+      <button disabled class="inline-block bg-gray-400 text-white px-4 py-2 rounded-md text-sm font-medium cursor-not-allowed">
+        Gestionar Usuarios
+      </button>
+    </div>
+  </div>
+
+  <div class="mt-8">
+    <%= form_with url: destroy_user_session_path, method: :delete, local: true, class: "inline" do |f| %>
+      <%= f.submit "Cerrar Sesión", 
+          data: { confirm: "¿Estás seguro de que quieres cerrar sesión?" },
+          class: "bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md text-sm font-medium cursor-pointer" %>
+    <% end %>
+  </div>
 </div>

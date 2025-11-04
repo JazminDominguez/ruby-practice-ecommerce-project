@@ -1,0 +1,29 @@
+<div class="flex flex-col w-[250px] background-none overflow-hidden ">
+    <div class="relative w-[250px] h-[250px] rounded-3xl overflow-hidden">
+    <div class="absolute top-2 right-2 bg-white rounded-full p-2 cursor-pointer">
+     <%= image_tag "heart.png", class: "w-6 h-6"%>
+    </div>
+        <% if product.respond_to?(:images) && product.images.attached? %>
+          <%= image_tag product.images.first, class: "w-full h-full object-cover" %>
+        <% elsif product.is_a?(Hash) && product[:image_url] %>
+          <%= image_tag product[:image_url], class: "w-full h-full object-cover" %>
+        <% else %>
+          <div class="w-full h-full bg-gray-200 flex items-center justify-center">
+            <span class="text-gray-400 text-sm">Sin imagen</span>
+          </div>
+        <% end %>
+    </div>
+    <div class="p-4 flex flex-col items-center bg-white rounded-3xl">
+        <h3 class="text-lg font-semibold text-gray-900 mb-2">
+            <%= product.respond_to?(:name) ? product.name : product[:name] %>
+        </h3>
+        <div class="flex justify-between">
+            <div class="px-4 py-2 flex flex-row items-center place-content-between min-w-[115px] cursor-pointer border-2 border-violet-700 text-violet-700 rounded-full"> 
+                <%= image_tag "basket.png", class: "w-6 h-6" %>
+                <button class="text-sm font-medium cursor-pointer">
+                    $<%= product.respond_to?(:price) ? number_with_precision(product.price, precision: 2) : product[:price] %>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

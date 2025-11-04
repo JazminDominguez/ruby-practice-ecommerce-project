@@ -1,0 +1,15 @@
+<div class="flex flex-row justify-between gap-2 mb-4">
+  <!-- Botón "Todas las categorías" - Preserva filtros de marcas -->
+  <%= link_to "Todas las categorías", 
+      customer_dashboard_path(brand_ids: @selected_brands), 
+      class: "rounded-3xl p-4 text-md font-semibold transition-colors #{@selected_category.blank? ? 'bg-violet-100 text-violet-700 border-2 border-violet-300' : 'bg-white text-gray-900'}" %>
+  
+  <!-- Botones de categorías - Preservan filtros de marcas -->
+  <% if @categories.present? %>
+    <% @categories.each do |category| %>
+      <%= link_to category.name,
+          customer_dashboard_path(category_id: category.id, brand_ids: @selected_brands),
+          class: "rounded-3xl p-4 text-md font-semibold transition-colors #{@selected_category == category.id.to_s ? 'bg-violet-100 text-violet-700 border-2 border-violet-300' : 'bg-white text-gray-900'}" %>
+    <% end %>
+  <% end %>
+</div>
